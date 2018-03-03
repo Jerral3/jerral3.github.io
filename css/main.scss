@@ -1,7 +1,7 @@
 ---
-layout: null
-sitemap: false
 ---
+
+@import "{{ site.theme }}";
 
 $baseurl: "{{ site.baseurl }}";
 $body-background-color: #2B2E31;
@@ -25,7 +25,7 @@ $full-width-break: $nav-width + ($space * 4) + $content-max-width;
 
 @import "mixins";
 @import "normalize";
-@import "pygments";
+//@import "pygments";
 @import "typography";
 @import "code";
 @import "tables";

@@ -6,7 +6,7 @@ input::-ms-reveal {
 body {
 	height: auto;
 	overflow-x: hidden;
-	background-color: $body-background-color;
+	//background-color: $body-background-color;
 
 	&.nav-open {
 		overflow: hidden;
@@ -23,7 +23,7 @@ body {
 
 	&::before {
 		content: "";
-		background-color: $content-background-color;
+		//background-color: $content-background-color;
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -51,7 +51,7 @@ body {
 		&::after {
 			left: 0;
 			width: $nav-width;
-			background-color: $nav-background-color;
+			//background-color: $nav-background-color;
 		}
 
 		#search-input,
@@ -62,7 +62,7 @@ body {
 		&::before {
 			left: $nav-width;
 			right: 0;
-			background-color: $content-background-color;
+			//background-color: $content-background-color;
 		}
 	}
 }
@@ -86,7 +86,7 @@ header {
 	right: 0;
 	overflow-x: hidden;
 	z-index: 1;
-	background-color: $nav-background-color;
+	//background-color: $nav-background-color;
 
 	ul {
 		padding: 0;
@@ -97,8 +97,8 @@ header {
 		padding: $emblem-vertical-padding $emblem-horizontal-padding;
 		height: $nav-header-height;
 		box-sizing: border-box;
-		background-color: $brand-colour;
-		color: #fff;
+		//background-color: $brand-colour;
+		//color: #fff;
 		margin: 0;
 		font-size: 1.7rem;
 		line-height: 0.8;
@@ -159,8 +159,8 @@ $nav-image: $baseurl + "/images/menu.svg";
 
 .content {
 	position: relative;
-	background-color: $content-background-color;
-	color: $content-color;
+	//background-color: $content-background-color;
+	//color: $content-color;
 
 	h3::before {
 		content: "";
@@ -187,7 +187,7 @@ $nav-image: $baseurl + "/images/menu.svg";
 	h2 {
 		font-size: 2rem;
 		margin-left: -1px;
-		color: #888;
+		//color: #888;
 		letter-spacing: 0;
 	}
 
@@ -243,7 +243,7 @@ nav > ul {
 	}
 
 	> a {
-		color: #666;
+		//color: #666;
 		text-decoration: none;
 		font-size: 1.4rem;
 		padding: $space / 2 0 $space / 2 $space * 2;
@@ -253,7 +253,7 @@ nav > ul {
 	&.current > a,
 	> a:active,
 	> a:hover {
-		color: #111;
+		//color: #111;
 	}
 
 	&.top-level > a {
@@ -270,7 +270,7 @@ nav > ul {
 
 	.example {
 		max-width: 300px;
-		background-color: #fafafa;
+		//background-color: #fafafa;
 		margin: 0;
 		padding: 0;
 		font-size: 0;
@@ -309,8 +309,8 @@ h3 + .warning {
 
 
 h4 code {
-	background: $nav-background-color;
-	color: $content-color;
+	//background: $nav-background-color;
+	//color: $content-color;
 	background-color: transparent;
 	font-weight: 700;
 	padding: 0;
@@ -337,7 +337,7 @@ h4 svg {
 	position: absolute;
 	top: 5px;
 	line-height: 1;
-	color: $brand-colour;
+	//color: $brand-colour;
 	padding-left: 5px;
 }
 
@@ -377,7 +377,7 @@ h4 svg {
 
 	&:focus {
 		outline: none;
-		border-left-color: $brand-colour;
+		//border-left-color: $brand-colour;
 	}
 }
 
@@ -390,7 +390,7 @@ h4 svg {
 	}
 
 	.date {
-		color: #888;
+		//color: #888;
 		font-style: italic;
 	}
 }
@@ -406,7 +406,7 @@ h4 svg {
 
 	&.major {
 		background: $brand-colour;
-		color: #fff;
+		//color: #fff;
 	}
 }
 
@@ -415,8 +415,8 @@ blockquote {
 	padding: 10px 15px;
 	margin-left: -15px;
 	margin-right: -10px;
-	background-color: $brand-colour-light;
-	border-color: $brand-colour;
+	//background-color: $brand-colour-light;
+	//border-color: $brand-colour;
 
 	p:last-child {
 		margin-bottom: 0;
@@ -449,13 +449,13 @@ img {
 		margin: 0;
 		font-size: 18px;
 		cursor: pointer;
-		background-color: #f7e064;
-		color: #333;
+		//background-color: #f7e064;
+		//color: #333;
 		box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
 
 		&:hover {
-			background-color: #f4d525;
-			color: #333;
+			//background-color: #f4d525;
+			//color: #333;
 		}
 	}
 
