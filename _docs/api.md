@@ -154,18 +154,3 @@ minikube service api --url
 ```
 
 Et voilà ! Cette fois ci, nous en avons bel et bien fini avec la configuration ! Je vais maintenant vous montrer comment utiliser cette API, pour vérifier les performances de notre cluster.
-
-# Utilisation de l'API
-
-Commençons par tous travailler dans le même environnement :
-
-```bash
-URL=$(minikube service api --url)
-```
-
-Pour envoyer des documents, il suffit de contacter l'API:
-
-```bash
-curl -X POST $URL/api/Texts 
-```
-
