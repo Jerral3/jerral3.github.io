@@ -29,3 +29,5 @@ Cette présentation sera centrée sur Kubernetes, qui est essentiellement un out
 # Kubernetes
 
 Et Kubernetes dans tout ça? Et bien il s'agit de l'orchestrateur. Mais qu'est-ce qu'un orchestrateur? Nous allons garder cela pour un prochain article !
+
+Tout le code utilisé dans ce tutoriel est disponible sur [GitHub](https://github.com/Jerral3/kubernetes-demo).
