@@ -13,6 +13,8 @@ De nombreux outils sont disponibles, le plus connu d'entre eux étant *Ansible*.
 
 Des alternatives à Ansible existe bien sûr, comme Puppet, ou Chef, qui était utilisé par Facebook. Le principe rest néanmoins assez similaire.
 
+Pour gérer l'aspect intégration continue, ce sont des outils comme Jenkins, ou bien Travis qui pourront être utilisés.
+
 # Agrégation de logs
 
 Si vous avez suivi scrupuleusement les instructions présentées, vous ne devriez pas avoir rencontré trop de problèmes au cours de ce tutoriel. Pourtant, j'en ai moi même rencontré énormément.  Il est très probable que vous en rencontriez aussi, et dans ces situations, on se rend compte qu'il est bien plus difficile de debugger dans ces conditions. En effet, les Pods sont détruits et reprogrammés à chaque fois qu'une erreur fatale se produit. Même quand l'erreur est simplement informative, il faut retrouver par quel Pod elle a été émise. Imaginez que vous vous rendiez compte d'une défaillance émise par un des workers, mais que vous en ayez 10 000?
