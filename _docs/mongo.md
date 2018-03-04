@@ -27,13 +27,28 @@ data:
   mongo-password: cmFuZG9tLXBhc3N3b3JkLW1vbmdv
 ```
 
-Cette fois encore, ils sont encodés en base64. Pour authentifier le Replica Set, MongoDB utilise une clé, semblable au cookie Erlang de RabbitMQ.
+Cette fois encore, ils sont encodés en base64. Pour authentifier le Replica Set, MongoDB utilise une clé, semblable au cookie Erlang de RabbitMQ. 
+
+Nous avons aussi besoin de définir le fichier qui sera l'équivalent de notre erlang-cookie.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo-secret.key
+  labels:
+    app: mongo
+type: Opaque
+data:
+  mongo-secret.key: bW9uZ29zZWNyZXQK
+```
+
+À nouveau, il s'agit simplement d'une valeur encodée en base64, qui sera placée dans un fichier.
 
 
 Nous pouvons alors définir notre Statefulset, accompagné de son Service.
 
 ```yaml
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -102,6 +117,8 @@ spec:
               secretKeyRef:
                 name: mongo
                 key: mongo-password
+          - name: MONGO_DATABASE
+            value: "demo"
       volumes:
         - name: secrets-volume
           secret:
@@ -137,7 +154,8 @@ data:
     if [ "$HOSTNAME" == "mongod-0" ]; then
       mongo --eval 'rs.initiate({_id: "rs0", version: 1, members: [ { _id: 0, host : "mongod-0.mongodb-service.default.svc.cluster.local:27017" }, { _id: 1, host : "mongod-1.mongodb-service.default.svc.cluster.local:27017" }, { _id: 2, host : "mongod-2.mongodb-service.default.svc.cluster.local:27017" } ]});';
       sleep 20;
-      mongo --eval "db = db.getSiblingDB('admin'); db.createUser({ user: \"$MONGO_USER\", pwd: \"$MONGO_PASSWORD\", roles: [{ role: 'root', db: 'admin' }]});";
+      mongo --eval "db = db.getSiblingDB('admin'); db.createUser({ user: \"$MONGO_USER\", pwd: \"$MONGO_PASSWORD\", roles: [{ role: 'userAdminAnyDatabase', db: 'admin' }]});";
+      mongo -u $MONGO_USER -p $MONGO_PASSWORD --authenticationDatabase admin --eval "db = db.getSiblingDB(\"$MONGO_DATABASE\"); db.createUser({ user: \"$MONGO_USER\", pwd: \"$MONGO_PASSWORD\", roles: [{ role: 'dbOwner', db: \"$MONGO_DATABASE\" }]});";
     fi;
 kind: ConfigMap
 metadata:
@@ -149,9 +167,9 @@ C'est la première instances qui va initier le cluster. On remarque déjà qu'il
 Le StatefulSet peut maintenant être créé. Une fois toutes les instances démarrées, on peut executer la commande:
 
 ```bash
-kubectl exec mongod-0 /bin/bash -- /data/init.sh
+$ kubectl exec mongod-0 /bin/bash -- /data/init.sh
 ```
 
+En fait, pour une raison que je n'ai pas encore comprise, cette commande doit même être lancé deux fois. L'utilisateur ne parvient pas à être créé dans la même commande que l'initialisation du Replica Set..
+
 Notre Replica Set est maintenant opérationnel pour une utilisation basique, mais beaucoup reste à faire pour qu'il soit réellement utilisable en production.
-
-

@@ -1,5 +1,5 @@
 ---
-title: Storage
+title: Stockage
 order: 4
 ---
 Nos services sont presque en place, et nous allons bientôt pouvoir passer à notre application proprement dite. Il nous reste encore un dernier point à éclaircir : notre solution de stockage.
@@ -14,30 +14,37 @@ Le plus simple serait bien sûr de déjà disposer de volumes GlusterFS. Dans le
 
 Pour ArchLinux, il faut commencer par lancer le service glusterd. Cela doit normalement aussi lancer le service rpc-bind.
 ```bash
-sudo pacman -S glusterfs
-sudo systemctl start glusterd
+$ sudo pacman -S glusterfs
+$ sudo systemctl start glusterd
 ```
 
 Vous aurez ensuite besoin d'une partition vierge sur votre disque. Pour moi, il s'agit de `/dev/sda6`. Attention à bien remplacer cette valeur par votre partition vierge sous peine de perdre des données ! Je l'ai ensuite montée dans le répertoire `/data` créé pour l'occasion:
 
 ```bash
-sudo mkdir -i /data
-sudo mkfs.xfs /dev/sda6
-sudo mount /dev/sda6 /data
-sudo mkdir -p /data/brick1/gv1
+$ sudo mkdir -i /data
+$ sudo mkfs.xfs /dev/sda6
+$ sudo mount /dev/sda6 /data
+$ sudo mkdir -p /data/brick1/gv1
 ```
 
 Très bien, nous pouvons maintenant nous servir de ce nouveau dossier pour créer un volume GlusterFS. Attention, pour cela, vous devez disposer d'un hostname autre que localhost. Consultez la documentation de votre distribution pour cela, et remplacer ensuite ce hostname dans la commande suivante :
 
 ```bash
-sudo gluster volume create gv1 hostname:/data/brick1/gv1
-sudo gluster volume start gv1
+$ sudo gluster volume create gv1 hostname:/data/brick1/gv1
+$ sudo gluster volume start gv1
 ```
 
-Et voilà, votre volume GlusterFS est prêt ! Pour ceux qui veulent utiliser un volume GlusterFS déjà existant, nous avons ici utiliser gv1 comme nom de volume.  Vous pouvez utiliser le nom que vous voulez, mais veillez à bien le remplacer dans les fichiers de configuration qui vont suivre. 
+Pour terminer, nous devons y créer un dossier, dans lequel nous placerons plus tard nos fichiers. Cela vous permettra aussi de vérifier que votre volume fonctionne correctement. Commençons par monter le volume. J'ai ici choisi de le faire dans `/mnt/gluster`, mais vous pouvez choisir le dossier (vide) que vous désirez.
+
+```bash
+$ sudo mount.glusterfs hostname:/gv1 /mnt/gluster
+$ sudo mkdir /mnt/gluster/uploaded
+```
+
+Et voilà, votre volume GlusterFS est prêt ! Pour ceux qui veulent utiliser un volume GlusterFS déjà existant, nous avons ici utilisé gv1 comme nom de volume.  Vous pouvez utiliser le nom que vous voulez, mais veillez à bien le remplacer dans les fichiers de configuration qui vont suivre. 
 
 # Création des volumes
-Nous pouvons maintenant revenir à Kubernetes. Il va falloir expliquer à notre cluster comment utiliser ces volumes de stockage externes. Dans le cas d'un véritable stockage externe, l'IP du point d'accès sera connue. Ici, nous avons besoin de l'adresse IP de notre machine, vue par le cluster. Elle peut être obtenue dans la section `vboxnet0` de la commande `ifconfig`. Dans la plupart des cas, ce devrait être 192.16.99.1. Cela nous donne donc le point d'accès suivant :
+Nous pouvons maintenant revenir à Kubernetes. Il va falloir expliquer à notre cluster comment utiliser ces volumes de stockage externes. Dans le cas d'un véritable stockage externe, l'IP du point d'accès sera connue. Ici, nous avons besoin de l'adresse IP de notre machine, vue par le cluster. Elle peut être obtenue dans la section `vboxnet0` de la commande `ifconfig`. Dans la plupart des cas, ce devrait être 192.168.99.1. Cela nous donne donc le point d'accès suivant :
 
 ```yaml
 apiVersion: v1

@@ -2,15 +2,15 @@
 title: RabbitMQ
 order: 2
 ---
-Nous y voilà, nous allons déployer nos premiers **Pod** avec Kubernetes ! Ce n'est pas le plus simple à mettre en place, mais nous allons commencer par **RabbitMQ**, car nos autres composants auront besoin de s'y connecter
+Nous y voilà, nous allons déployer nos premiers **Pods** avec Kubernetes ! Ce n'est pas le plus simple à mettre en place, mais nous allons commencer par **RabbitMQ**, car nos autres composants auront besoin de s'y connecter.
 
 # RabbitMQ
 
 RabbitMQ est un **broker**. Concrètement, il propose de mettre en place des tunnels, appelés **queues**, dans lesquels vont transiter des messages. Les applications peuvent alors publier, ou bien écouter ces queues, et donc se transmettre des messages.
 
-Un premier intérêt réside dans le fait que les messages vont pouvoir être gardés en mémoire par RabbitMQ. On peut donc s'en servir dans un modèle maitre/esclave, et donner des t^aches à un **worker**. Si celui-ci n'est pas disponible, alors le message va être conservé, jusqu'à ce que qu'une application viennent le lire, et effectuer la tâche demandée. En y ajoutant un système de réponse, dit **d'acknowledgement**, on s'assure qu'aucune tâche ne sera oubliée.
+Un premier intérêt réside dans le fait que les messages vont pouvoir être gardés en mémoire par RabbitMQ. On peut donc s'en servir dans un modèle maitre/esclave, et donner des tâches à un **worker**. Si celui-ci n'est pas disponible, alors le message va être conservé, jusqu'à ce que qu'une application vienne le lire, et effectuer la tâche demandée. En y ajoutant un système de réponse, dit **d'acknowledgement**, on s'assure qu'aucune tâche ne sera oubliée.
 
-Mais dans notre cas, c'est surtout la possibilité de distribuer le travail qui va nous intéresser. En effet, plusieurs applications différentes peuvent publier sur une queue, et plusieurs applications différentes peuvent aussi écouter. Dans ce cas, une seule d'entre elles accusera réception du message, et effectuera donc la tâche demandée. Avec 5 workers, nous allons donc pouvoir effectuer 5 t$aches en parallèle, et c'est bien tout le but de notre cluster.
+Mais dans notre cas, c'est surtout la possibilité de distribuer le travail qui va nous intéresser. En effet, plusieurs applications différentes peuvent publier sur une queue, et plusieurs applications différentes peuvent aussi écouter. Dans ce cas, une seule d'entre elles accusera réception du message, et effectuera donc la tâche demandée. Avec 5 workers, nous allons donc pouvoir effectuer 5 tâches en parallèle, et c'est bien tout le but de notre cluster.
 
 Bien sûr, si l'ont veut déployer une instance de RabbitMQ dans un cluster, on ne peut pas se contenter de lancer plusieurs fois l'application. Celles-ci vont devoir partager des données, comme les queues et les messages. Il s'agit donc principalement de répartir la charge en cas de flux trop important de messages. Heureusement, RabbitMQ propose nativement un fonctionnement en mode cluster, et il suffira donc de connecter les différentes instances entre elles.
 
@@ -52,9 +52,9 @@ data:
   rabbitmq-erlang-cookie: cmFuZG9tLWNvb2tpZS1yYWJiaXQ=
 ```
 
-Il s'agit simplement de valeur encodée en base64, obtenir à partir de commandes du type:
+Il s'agit simplement de valeurs encodées en base64, obtenues à partir de commandes du type:
 ```bash
-echo -n value | base64
+$ echo -n value | base64
 ```
 
 Attention à bien utiliser le flag **-n** pour ne pas prendre en compte le retour à la ligne introduit normalement par *echo*.
@@ -99,7 +99,7 @@ spec:
     app: rabbitmq
 ```
 
-Dans le premier Service, qui sera accessible via le nom `rabbitmq-management`, va retransmettre les requêtes vers le port 15672 de l'un des Pods portant le nom de `rabbitmq`, et cela correspond au port utilisé par le plugin de management.
+Le premier Service, qui sera accessible via le nom `rabbitmq-management`, va retransmettre les requêtes vers le port 15672 de l'un des Pods portant le nom de `rabbitmq`, et cela correspond au port utilisé par le plugin de management.
 Dans le deuxième service, nous allons pouvoir exposer les différents ports utilisés par RabbitMQ, et rediriger les requêtes vers les Pods du nom de `rabbitmq`. On ne donne pas d'IP au niveau du cluster à ce Service, et il ne sera donc accessible que depuis l'intérieur du cluster, contrairement au service de management qui doit pouvoir être accessible depuis une machine extérieure au cluster, afin qu'un administrateur puisse effectuer la maintenance nécessaire.
 
 # StatefulSet
@@ -124,7 +124,7 @@ spec:
     spec:
       containers:
       - name: rabbitmq
-        image: rabbitmq:3.7.3-management-alpine
+        image: rabbitmq:3.6.6-management-alpine
         lifecycle:
           postStart:
             exec:
@@ -183,7 +183,7 @@ spec:
           storage: 1Gi
 ```
 
-Nous retrouvons tout d'abord les *metadata* t les *selectors* habituels, qui permette de sélectionner spécifiquement ce StatefulSet. On précise ensuite le nom du service responsable de sa gestion, ainsi que le nombre d'instances du Pod que nous voulons utiliser.
+Nous retrouvons tout d'abord les *metadata* et les *selectors* habituels, qui permettent de sélectionner spécifiquement ce StatefulSet. On précise ensuite le nom du service responsable de sa gestion, ainsi que le nombre d'instances du Pod que nous voulons utiliser.
 
 La section `template` va ensuite définir le Pod qui sera à répliquer au sein du StatefulSet. À nouveau, on spécifie donc les metadata. Au même niveau, on retrouve ensuite la définition des containers et des volumes utilisés. Commençons par les volumes: il n'y en a qu'un, et il correspond au *ConfigMap* que nous avons défini précédemment. Il sera disponible aux containers sous le nom de *config*.
 
@@ -199,6 +199,10 @@ Ensuite, nous attendons que l'instance de RabbitMQ soit réellement démarrée, 
 
 # Conclusion
 
-Vous devriez maintenant avoir un cluster RabbitMQ prêt à l'emploi. Grâce à kubectl, on peut facilement ajouter de nouvelles instances dynamiquement, qui rejoindront automatiquement le cluster. Ce cluster est accessible à toutes les autres applications via le nom de domaine du service, *rabbitmq*, via le port 5672 qu'il expose.
+Vous devriez maintenant avoir un cluster RabbitMQ prêt à l'emploi. Grâce à kubectl, on peut facilement ajouter de nouvelles instances dynamiquement, qui rejoindront automatiquement le cluster. Ce cluster est accessible à toutes les autres applications via le nom de domaine du service, *rabbitmq*, via le port 5672 qu'il expose. L'interface de gestion, elle, est disponible à l'URL renvoyée par la commande :
+
+```bash
+$ minikube service rabbitmq-management --url
+```
 
 C'était un gros morceau, surtout en introduction, et la suite devrait être plus facile. Mais nous avons tout de même un cluster MongoDB à mettre en place, et ce ne sera pas non plus une mince affaire ! Rendez-vous au prochain numéro !

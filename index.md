@@ -9,7 +9,7 @@ Dans cette série, nous allons essayer de démontrer les avantages offerts par d
 
 Commençons par décrire notre application, et les différents éléments qui la composent. Nous allons simuler une application exposant une API pour être utilisée, et réalisant un travail long par le biais d'un *worker*. On pourra imaginer par exemple un algorithme de traitement d'image. Dans notre cas, et pour rester minimaliste, nous allons nous contenter d'une recherche de mots dans un texte. Pour simuler l'utilisation de plusieurs machines avec des temps processeurs distincts, nous mettrons le programme en sommeil une seconde.
 
-Le principal objectif de notre installation sera de pouvoir démultiplier les workers, afin de répartir la charge de travail sur plusieurs machines. Il faut donc disposer d'un côté d'une API, et de l'autre, d'un Worker auquel elle transmettra des instructions. Pour pouvoir communiquer efficacement dans un environnement distribué, nous allons utiliser un Broker, qui est chargé de transmettre les messages. Cela permet de répartir les messages entre toutes les instances connectées, ainsi qu'à assurer certaines mesures de *Quality of Service*. Nous choisissons ici RabbitMQ, qui peut fonctionner en mode distribué. Enfin, notre API aura aussi besoin de stocker des données, et nous utiliserons ici MongoDB, qui peut aussi être déployé sur un cluster.
+Le principal objectif de notre installation sera de pouvoir démultiplier les workers, afin de répartir la charge de travail sur plusieurs machines. Il faut donc disposer d'un côté d'une API, et de l'autre, d'un Worker auquel elle transmettra des instructions. Pour pouvoir communiquer efficacement dans un environnement distribué, nous allons utiliser un Broker, qui est chargé de transmettre les messages. Cela permet de répartir les messages entre toutes les instances connectées, ainsi que d'assurer certaines mesures de *Quality of Service*. Nous choisissons ici RabbitMQ, qui peut fonctionner en mode distribué. Enfin, notre API aura aussi besoin de stocker des données, et nous utiliserons ici MongoDB, qui peut aussi être déployé sur un cluster.
 
 # Défis techniques
 
@@ -18,7 +18,6 @@ La mise en place et la configuration de ces différents outils présente déjà 
 * le stockage distribué, permanent, et partagé de fichiers
 * la gestion des environnements de développement et de production
 * l'agrégation des logs
-* la gestion d'un changement de version
 
 # Docker
 

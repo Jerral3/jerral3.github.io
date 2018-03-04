@@ -5,7 +5,7 @@ order: 7
 
 # Utilisation de l'API
 
-Maintenant que tout est en place, il est temps que je vous montre comment se servir de cette API. Commençons par envoyer quelques textes, qui serviront de base de comparaison. Vous pouvez utiliser n'importe quel fichier texte, et envoyer plusieurs fois le même. Le résultat de la recherche n'est pas vraiment ce qui nous intéresse ici. Mais où devons-nous envoyer ces fichiers?
+Maintenant que tout est en place, il est temps que je vous montre comment se servir de cette API. Commençons par envoyer quelques textes, qui serviront de base de comparaison. Vous pouvez utiliser n'importe quel fichier texte, et envoyer plusieurs fois le même. Le résultat de la recherche n'est pas vraiment ce qui nous intéresse ici. Mais où devons nous envoyer ces fichiers?
 
 Pour trouver l'URL utilisé par l'API, nous devons demander des informations sur le service à minikube :
 
@@ -25,7 +25,7 @@ Commencez par envoyer une dizaine de fichiers. On peut alors effectuer une reche
 $ curl -X POST $API_URL/api/Texts/search?word=test
 ```
 
-VOus pouvez bien sur changer le mot recherché. Si vos textes ne sont pas trop long, et étant donné que nous utilisons 3 Workers pour 10 textes, cela devrait prendre un peu plus de 4 secondes. Pour rappel, à chaque requête, le orker est mis en pause une seconde, pour simuler une tâche intensive. 
+Vous pouvez bien sûr changer le mot recherché. Si vos textes ne sont pas trop longs, et étant donné que nous utilisons 3 Workers pour 10 textes, cela devrait prendre un peu plus de 4 secondes. Pour rappel, à chaque requête, le Worker est mis en pause une seconde, pour simuler une tâche intensive. 
 
 # Adaptons nos ressources !
 

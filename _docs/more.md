@@ -11,7 +11,7 @@ Tout d'abord, un tel projet devrait être encore bien plus automatisé. Nos fich
 
 De nombreux outils sont disponibles, le plus connu d'entre eux étant *Ansible*. Disposer de tels outils est indispensable si l'on veut utiliser un cluster non trivial en production. Le principe est simple: Ansible agit comme une sortie de glue entre tous les éléments de votre architecture. Alors, tout devient automatisable. Vous devez ajouter une instance de MongoDB à votre cluster, et cela nécessite quelques actions dans les Pods eux même? Vous pouvez créer un script Ansible pour cela. À chaque fois qu'un développeur envoie un commit sur la branche *master* de votre projet, vous devez lancer les tests unitaires, reconstruire l'image Docker correspondante, et effectuer un changement de version dans le cluster? Ansible peut aussi automatiser cela. Et bien plus encore, puisqu'il peut aussi être interfacé avec Nagios pour le monitoring, ou bien Slack et IRC pour vous prévenir directement.
 
-Des alternatives à Ansible existe bien sûr, comme Puppet, ou Chef, qui était utilisé par Facebook. Le principe rest néanmoins assez similaire.
+Des alternatives à Ansible existent bien sûr, comme Puppet, ou Chef, qui était utilisé par Facebook. Le principe reste néanmoins assez similaire.
 
 Pour gérer l'aspect intégration continue, ce sont des outils comme Jenkins, ou bien Travis qui pourront être utilisés.
 
