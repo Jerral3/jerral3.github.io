@@ -25,8 +25,8 @@ Si un Pod a connu une erreur fatale, et a été reprogrammé, il est aussi possi
 
 Ces deux solutions restent très artisanales. Pour être vraiment efficace, il faut agréger les logs provenant des différents Pods. Pour cela, on peut utiliser un agent fluentd, qui fonctionnera sur chacun des Nodes du cluster. Il pourra alors envoyer les logs vers un système centralisé, comme ElasticSearch par example, et l'on pourra ensuite utiliser Kibana pour les visualiser. Pour s'assurer qu'un agent de logging est fonctionnel sur chaque Nodes, on pourra utiliser l'objet DaemonSet de Kubernetes.
 
-# PodDisruptionBudget et autres indications
+# PodDisruptionBudget et Monitoring
 
 Un PodDisruptionBudget est indispensable dès lors que le cluster est composé de plusieurs Nodes. Son principal intérêt est de définir le nombre minimal d'instance qui doivent être fonctionnel en même temps. Imaginons que nous ayons à tout prix besoin d'au moins deux Workers fonctionnels, et que nous n'en ayons justement que deux. Sans PodDisruptionBudget, si l'un des Pods doit être reprogrammé, alors il sera d'abord supprimé de l'un des Nodes, avant d'être redémarré sur un autre. Avec un PodDisruptionBudget, il sera d'abord démarré, pour s'assurer que deux instances seront toujours en état de marche.
 
-De la même manière, de nombreuses autres indications peuvent être apportées aux différents Pods du cluster. On peut par exemple gérer assez finement les besoins en ressources de calcul, de mémoire, ou d'accès au stockage. Il est important d'estimer correctement les besoins des différents composants en fonction du volume de traitement attendu.
+De la même manière, de nombreuses autres indications peuvent être apportées aux différents Pods du cluster. On peut par exemple gérer assez finement les besoins en ressources de calcul, de mémoire, ou d'accès au stockage. Il est important d'estimer correctement les besoins des différents composants en fonction du volume de traitement attendu. Dans tous les cas, des outils de monitoring doivent être mis en place pour surveiller l'utilisation des ressources du cluster par l'application.

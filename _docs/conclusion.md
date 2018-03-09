@@ -12,10 +12,10 @@ Au contraire, Docker-Swarm est sensiblement plus simple à manipuler. Cela est n
 
 Finalement, la complexité additionnelle se traduit par des fonctionnalités plus avancées. Kubernetes est certes plus compliqué à mettre en place, mais permet par exemple de gérer l'auto-scaling : si des ressources de calcul viennent à manquer, le cluster peut s'adapter et provisionner de nouveaux Pods.
 
-Il est intéressant de noter que s'il est plus simple de déployer son application de manière traditionnelle qu'avec Kubernetes, ce n'est pas forcément vrai s'il l'on compare à Docker-Swarm. En effet, il est à peu près équivalent d'installer une application sur une machine virtuelle, et de lister toutes ces commandes ans un Dockerfile. Docker permet par contre ensuite de réitérer l'opération, sans risque de différences de configuration.
+Il est intéressant de noter que s'il est plus simple de déployer son application de manière traditionnelle qu'avec Kubernetes, ce n'est pas forcément vrai s'il l'on compare à Docker-Swarm. En effet, il est à peu près équivalent d'installer une application sur une machine virtuelle, et de lister toutes ces commandes dans un Dockerfile. Docker permet par contre ensuite de réitérer l'opération, sans risque de différences de configuration.
 
 # Passage à l'échelle
-Pour ce qui est du passage, nous n'aborderons bien sûr pas la méthode traditionnelle, puisque celle-ci est dans ce cas complètement dépassée.
+Pour ce qui est du passage à l'échelle, nous n'aborderons bien sûr pas la méthode traditionnelle, puisque celle-ci est dans ce cas complètement dépassée.
 
 L'utilisation de Pods dans Kubernetes, là ou Docker-Swarm se limite à des images, est un réel atout pour le passage à l'échelle. Dans notre série, nous les utilisions de manière quasi-équivalente. Mais pour une entreprise, coordonner le déploiement de plusieurs images au sein d'un même Pod peut être une fonctionnalité nécessaire.
 
@@ -24,7 +24,7 @@ Sans entrer dans ces considérations, Kubernetes permet tout de même de contrô
 # Gestion des états
 Pour ce qui est de la gestion des états, ce sont cette fois Docker-Swarm et Kubernetes qui ne peuvent pas se comparer à l'installation traditionnelle. Nous l'avons vu, que ce soit pour gérer une base de données, ou bien le stockage, l'utilisation de containers reste encore une vraie difficulté dès que l'application n'est plus *Stateless*. Bien sûr, ce choix se fait par contre au dépend de la flexibilité.
 
-Il n'y a par contre pas de réels différences entre les deux outils de gestion de cluster, pour lesquels il est toujours un peu compliqué de retenir un état. Kubernetes propose tout de même de belles avancées dans ce domaine, avec l'apparition des Statefulsets dans la version stable.
+Il n'y a par contre pas de réels différences entre les deux outils de gestion de cluster, pour lesquels il est toujours un peu compliqué de retenir un état. Kubernetes propose tout de même de belles avancées dans ce domaine, avec l'apparition des Statefulsets dans la version stable. C'est dans ce domaine particulier que tous les outils d'orchestration de containers doivent encore se développer.
 
 # Quand utiliser (et qui l'utilise)
 Finalement, il apparait assez évident que l'on ne peut même pas réellement parler d'alternative, tant les cas d'utilisation sont différents.
@@ -34,7 +34,3 @@ Des installations traditionnelles n'ont aujourd'hui plus beaucoup d'avenir, exce
 Pour des besoins un peu plus avancés, Docker-Swarm commence à devenir intéressant. Il est un peu plus compliqué à utiliser, mais reste assez accessible. Swarm est par exemple utilisé par la compagnie finlandaise de transport ferroviaire, mais cela reste assez marginal dans de très grandes entreprises.
 
 Enfin, Kubernetes a été conçu pour assurer un maximum de flexibilité à ses utilisateurs, et cela vient bien sûr avec une complexité bien supérieure. Bien qu'objectivement supérieur à Docker-Swarm, il n'en reste pas moins pas forcément adapter à tous les cas d'usages, et notamment à celui des moyennes entreprises. Kubernetes est donc actuellement supporté par Microsoft Azure, Google Compute Engine, ou encore OpenShift. Il est de plus soutenu par Google, et utilisé par de grands groupes à l'échelle mondiale: Amadeus, eBay, ou encore BlaBlaCar.
-
-
-# Avenir
-
