@@ -26,11 +26,11 @@ Pour ce qui est de la gestion des états, ce sont cette fois Docker-Swarm et Kub
 
 Il n'y a par contre pas de réels différences entre les deux outils de gestion de cluster, pour lesquels il est toujours un peu compliqué de retenir un état. Kubernetes propose tout de même de belles avancées dans ce domaine, avec l'apparition des Statefulsets dans la version stable. C'est dans ce domaine particulier que tous les outils d'orchestration de containers doivent encore se développer.
 
-# Quand utiliser (et qui l'utilise)
+# Conclusion sur les alternatives
 Finalement, il apparait assez évident que l'on ne peut même pas réellement parler d'alternative, tant les cas d'utilisation sont différents.
 
 Des installations traditionnelles n'ont aujourd'hui plus beaucoup d'avenir, excepté pour les petites entreprises, qui n'en sont qu'à leurs débuts. Même dans ces situations, utiliser des images Docker, même sans recourir à Docker-Swarm, peut être intéressant. Cela nécessite par contre déjà une certaine expérience.
 
 Pour des besoins un peu plus avancés, Docker-Swarm commence à devenir intéressant. Il est un peu plus compliqué à utiliser, mais reste assez accessible. Swarm est par exemple utilisé par la compagnie finlandaise de transport ferroviaire, mais cela reste assez marginal dans de très grandes entreprises.
 
-Enfin, Kubernetes a été conçu pour assurer un maximum de flexibilité à ses utilisateurs, et cela vient bien sûr avec une complexité bien supérieure. Bien qu'objectivement supérieur à Docker-Swarm, il n'en reste pas moins pas forcément adapter à tous les cas d'usages, et notamment à celui des moyennes entreprises. Kubernetes est donc actuellement supporté par Microsoft Azure, Google Compute Engine, ou encore OpenShift. Il est de plus soutenu par Google, et utilisé par de grands groupes à l'échelle mondiale: Amadeus, eBay, ou encore BlaBlaCar.
+Enfin, Kubernetes a été conçu pour assurer un maximum de flexibilité à ses utilisateurs, et cela vient bien sûr avec une complexité bien supérieure. Bien qu'objectivement supérieur à Docker-Swarm, il n'en reste pas moins pas forcément adapté à tous les cas d'usages, et notamment à celui des moyennes entreprises. Kubernetes est donc actuellement supporté par Microsoft Azure, Google Compute Engine, ou encore OpenShift. Il est de plus soutenu par Google, et utilisé par de grands groupes à l'échelle mondiale: Amadeus, eBay, ou encore BlaBlaCar. Il s'agit pour le moment de l'outil le plus utilisé, et de très loin, pour l'orchestration de container en production.
