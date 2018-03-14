@@ -34,3 +34,17 @@ Des installations traditionnelles n'ont aujourd'hui plus beaucoup d'avenir, exce
 Pour des besoins un peu plus avancés, Docker-Swarm commence à devenir intéressant. Il est un peu plus compliqué à utiliser, mais reste assez accessible. Swarm est par exemple utilisé par la compagnie finlandaise de transport ferroviaire, mais cela reste assez marginal dans de très grandes entreprises.
 
 Enfin, Kubernetes a été conçu pour assurer un maximum de flexibilité à ses utilisateurs, et cela vient bien sûr avec une complexité bien supérieure. Bien qu'objectivement supérieur à Docker-Swarm, il n'en reste pas moins pas forcément adapté à tous les cas d'usages, et notamment à celui des moyennes entreprises. Kubernetes est donc actuellement supporté par Microsoft Azure, Google Compute Engine, ou encore OpenShift. Il est de plus soutenu par Google, et utilisé par de grands groupes à l'échelle mondiale: Amadeus, eBay, ou encore BlaBlaCar. Il s'agit pour le moment de l'outil le plus utilisé, et de très loin, pour l'orchestration de container en production.
+
+# Sources
+
+En plus de (l'excellente) documentation officielle de Kubernetes, je me suis appuyé sur les sources suivantes pour la rédaction de cette série :
+
+[Une introduction aux architectures micro-services](https://martinfowler.com/articles/microservices.html)
+[MongoDB, Statefulset, et production](https://pauldone.blogspot.fr/2017/06/deploying-mongodb-on-kubernetes-gke25.html) (je recommande vivement la lecture complète de ses 4 articles !)
+[RabbitMQ en mode cluster](https://www.mirantis.com/blog/clustered-rabbitmq-kubernetes/)
+[RabbitMQ et Statefulset](https://wesmorgan.svbtle.com/rabbitmq-cluster-on-kubernetes-with-statefulsets)
+[Une comparaison des méthodes de stockage](https://www.xenonstack.com/blog/devops/persistent-storage-solution-for-containers-docker-kubernetes)
+[Kubernetes pour la production](https://thenewstack.io/kubernetes-needs-production/)
+[Kubernetes pour la production, encore](https://hackernoon.com/kubernetes-production-to-be-or-not-to-be-3f79516016a6)
+[Comparaison des principaux acteurs](https://codefresh.io/kubernetes-tutorial/kubernetes-vs-docker-swarm-vs-apache-mesos/)
+[Une comparaison plus avancée](https://blog.outlyer.com/kubernetes-vs.-mesos-vs.-swarm)
